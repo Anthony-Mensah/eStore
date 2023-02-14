@@ -1,0 +1,54 @@
+{% load static %}
+<!-- navbar -->
+<nav class = "navbar navbar-expand-lg navbar-light bg-white py-4 fixed-top">
+    <div class = "container">
+        <a class = "navbar-brand d-flex justify-content-between align-items-center order-lg-0" href = "/">
+            <img src = "{% static 'images/shopping-bag-icon.png' %}" alt = "site icon">
+            <span class = " fw-lighter ms-2">eStore</span>
+        </a>
+
+        <div class = "order-lg-2 nav-btns">
+            <button type = "button" class = "btn position-relative">
+                <i class = "fa fa-shopping-cart"></i>
+                <span id="cart-items" class = "position-absolute top-0 start-100 translate-middle badge bg-primary">{{order.total_items}}</span>
+            </button>
+        </div>
+
+        <button class = "navbar-toggler border-0" type = "button" data-bs-toggle = "collapse" data-bs-target = "#navMenu">
+            <span class = "navbar-toggler-icon"></span>
+        </button>
+
+        <div class = "collapse navbar-collapse order-lg-1" id = "navMenu">
+            <ul class = "navbar-nav mx-auto text-center">
+                <li class = "nav-item px-2 py-2">
+                    <a class = "nav-link text-uppercase text-dark" href = "/">home</a>
+                </li>
+                <!-- dropdown category -->
+                <li class="nav-item px-2 py-2 dropdown">
+                  <a href="#" class="nav-link text-uppercase text-dark dropdown-toggle" data-bs-toggle="dropdown" role="button">collection</a>
+                  <ul class="dropdown-menu">
+                    {% for category in categories %}
+                    <li>
+                      <a href="{% url 'store:category' category.slug %}" class="dropdown-item">{{category.name}}</a>
+                    </li>
+                    {% endfor %}
+                  </ul>
+                </li>
+                <!-- end dropdown category -->
+                <li class = "nav-item px-2 py-2">
+                    <a class = "nav-link text-uppercase text-dark" href = "{% url 'store:products' %}">Products</a>
+                </li>
+                {% if request.user.is_authenticated %}
+                <li class="nav-item px-2 py-2">
+                  <a class="nav-link text-uppercase text-dark" href="{% url 'user:logout' %}">Logout</a>
+                </li>
+                {% else %}
+                <li class="nav-item px-2 py-2">
+                  <a class="nav-link text-uppercase text-dark btn-primary" href="">Login</a>
+                </li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+</nav>
+<!-- end of navbar -->

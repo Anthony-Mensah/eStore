@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{% endblock title %}</title>
+    <!-- fontawesome cdn -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- fontawesome -->
+    <!-- <link rel="stylesheet" href="{% static 'fontawesome-free-5.15.4-web/css/all.css' %}" /> -->
+
+    <!-- bootstrap css -->
+    <link rel = "stylesheet" href = "{% static 'bootstrap-5.0.2-dist/css/bootstrap.min.css' %}">
+
+    <!-- jquery -->
+    <script src = "{% static 'js/jquery-3.6.0.js' %}"></script>
+
+    <!-- custom css -->
+    <link rel = "stylesheet" href = "{% static 'css/main.css' %}">
+
+
+</head>
+<body>
+  <!-- send url and csrf_token to js files -->
+  <script type="text/javascript">
+    var url = {% url "store:add_product" %}
+    var csrf_token = "{{csrf_token}}"
+  </script>
+  
+  <!-- Navigation -->
+  {% include 'store/navbar.html' %}
+
+
+{% block content %}
+{% endblock content %}
+
+<!-- Footer Starts Here -->
+{% include 'store/footer.html' %}
+
+
+
+
+    <!-- isotope js -->
+    <script src="https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.js"></script>
+    <!-- bootstrap js -->
+    <script src = "{% static 'bootstrap-5.0.2-dist/js/bootstrap.min.js' %}"></script>
+    <!-- custom js -->
+    <script src = "{% static 'js/script.js' %}"></script>
+</body>
+</html>

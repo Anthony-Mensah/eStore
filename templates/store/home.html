@@ -1,0 +1,126 @@
+{% extends 'store/base.html' %}
+{% load static %}
+{% block title %}
+eStore - Shop Freely
+{% endblock title %}
+
+{% block content %}
+
+<!-- header -->
+<header id = "header" class = "vh-100 carousel slide" data-bs-ride = "carousel" style = "padding-top: 104px;">
+    <div class = "container h-100 d-flex align-items-center carousel-inner">
+        <div class = "text-center carousel-item active">
+            <h2 class = "text-capitalize text-white">best collection</h2>
+            <h1 class = "text-uppercase py-2 fw-bold text-white">new arrivals</h1>
+            <a href = "{% url 'store:products' %}" class = "btn mt-3 text-uppercase">shop now</a>
+        </div>
+        <div class = "text-center carousel-item">
+            <h2 class = "text-capitalize text-white">best price & offer</h2>
+            <h1 class = "text-uppercase py-2 fw-bold text-white">new season</h1>
+            <a href = "#" class = "btn mt-3 text-uppercase">buy now</a>
+        </div>
+    </div>
+
+    <button class = "carousel-control-prev" type = "button" data-bs-target="#header" data-bs-slide = "prev">
+        <span class = "carousel-control-prev-icon"></span>
+    </button>
+    <button class = "carousel-control-next" type = "button" data-bs-target="#header" data-bs-slide = "next">
+        <span class = "carousel-control-next-icon"></span>
+    </button>
+</header>
+<!-- end of header -->
+<!-- collection -->
+<section id = "collection" class = "py-5">
+    <div class = "container">
+        <div class = "title text-center">
+            <h2 class = "position-relative d-inline-block">New Collection</h2>
+        </div>
+
+        <div class = "row g-0">
+            <div class = "collection-list mt-4 row gx-0 gy-3">
+              {% for product in all_products %}
+                <div class = "col-md-6 col-lg-4 col-xl-3 p-2 best">
+                    <div class = "collection-img position-relative">
+                        <img src = "{{product.image.url}}" class = "w-100">
+                        <span class = "position-absolute bg-primary text-white d-flex align-items-center justify-content-center">sale</span>
+                    </div>
+                    <div class = "text-center">
+                        <div class = "rating mt-3">
+                        </div>
+                        <p class = "text-capitalize my-1">{{product.name}}</p>
+                        <span class = "fw-bold">${{product.price}}</span>
+                        <div class="">
+                          <button type="button" class="btn btn-primary mt-3 cart-button" data-index="{{product.id}}">Add to Cart</button>
+
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</section>
+<!-- end of collection -->
+
+<!-- special products -->
+<section id = "special" class = "py-5">
+    <div class = "container">
+        <div class = "title text-center py-5">
+            <h2 class = "position-relative d-inline-block">Special Selection</h2>
+        </div>
+
+        <div class = "special-list row g-0">
+          {% for product in special_prod %}
+            <div class = "col-md-6 col-lg-4 col-xl-3 p-2">
+                <div class = "special-img position-relative overflow-hidden">
+                    <img src = "{{product.image.url}}" class = "w-100">
+                    <span class = "position-absolute d-flex align-items-center justify-content-center text-primary fs-4">
+                        <i class = "fas fa-heart"></i>
+                    </span>
+                </div>
+                <div class = "text-center">
+                    <p class = "text-capitalize mt-3 mb-1">{{product.name}}</p>
+                    <span class = "fw-bold d-block">$ {{product.price}}</span>
+                    <button type="button" class="btn btn-primary mt-3 cart-button" data-index="{{product.id}}">Add to Cart</button>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+<!-- end of special products -->
+
+<!-- Discounts -->
+<!-- end of blogs -->
+
+<!-- blogs -->
+<!-- end of blogs -->
+
+<!-- about us -->
+<section id = "about" class = "py-5">
+    <div class = "container">
+        <div class = "row gy-lg-5 align-items-center">
+            <div class = "col-lg-6 order-lg-1 text-center text-lg-start">
+                <div class = "title pt-3 pb-5">
+                    <h2 class = "position-relative d-inline-block ms-4">About Us</h2>
+                </div>
+                <p class = "lead text-muted">Lorem ipsum dolor sit amet consectetur adipisicing elit. Nobis, ipsam.</p>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem fuga blanditiis, modi exercitationem quae quam eveniet! Minus labore voluptatibus corporis recusandae accusantium velit, nemo, nobis, nulla ullam pariatur totam quos.</p>
+            </div>
+            <div class = "col-lg-6 order-lg-0">
+                <img src = "images/about_us.jpg" alt = "" class = "img-fluid">
+            </div>
+        </div>
+    </div>
+</section>
+<!-- end of about us -->
+
+<!-- popular -->
+<!-- end of popular -->
+
+<!-- newsletter -->
+<!-- end of newsletter -->
+
+<script src="{% static 'js/add.js' %}"></script>
+
+{% endblock content %}

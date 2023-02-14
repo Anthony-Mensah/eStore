@@ -1,0 +1,31 @@
+
+{% extends 'user/base.html' %}
+{% load static %}
+{% block title %}
+Log in
+{% endblock title %}
+
+{% block content %}
+<style media="screen">
+#checkmark{
+  width:200px;
+}
+</style>
+<section class="ftco-section">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-6 text-center mb-5">
+        <h1 class="heading-section"></h1>
+        <div class="card shadow p-3">
+          <div class="">
+            <img id="checkmark" src="{% static 'images/checkmark.png' %}" alt="">
+          </div>
+          <p>Account registered successfully!!!</p>
+          <p>Check your email to activate your account. Thank you</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+{% endblock content %}
