@@ -1,1 +1,2 @@
 Correct if category is deleted the search won't mess up
+check the quantity in stock before checking out

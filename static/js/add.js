@@ -12,6 +12,7 @@
       },
       success: function (response) {
         $('#cart-items').html(response.total_items)
+        console.log("Product added to cart")
       },
       error: function (xhr, errmsg, err) {
         alert("error")

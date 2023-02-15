@@ -9,6 +9,11 @@ def home(request):
 
     all_products = Product.objects.all()
     special_prod = Product.objects.filter(is_special=True)
+    if request.user.is_authenticated:
+        order, created = Order.objects.get_or_create(
+        user=request.user
+        )
+        order.save()
 
     context = {
     'all_products':all_products,
@@ -35,18 +40,7 @@ def category(request, slug):
     'products':products,
     }
     return render(request, 'store/category.html', context)
-#
-def single_product(request, slug):
-    pass
-#     product = get_object_or_404(Product, slug=slug)
-#     product_category = product.category
-#     related_products = Product.objects.exclude(slug=slug)
-#
-#     context = {
-#     'product':product,
-#     'related_products':related_products
-#     }
-#     return render(request, 'store/single_product.html', context)
+
 
 @login_required(login_url='user:login')
 def add_product(request):
@@ -58,9 +52,7 @@ def add_product(request):
 
         product = get_object_or_404(Product, id=product_id)
 
-        order, created = Order.objects.get_or_create(
-        user=request.user,
-        )
+        order = get_object_or_404(Order, user=request.user)
         order.save()
 
         orderitem, created = Orderitem.objects.get_or_create(
@@ -70,3 +62,46 @@ def add_product(request):
         orderitem.save()
 
         return JsonResponse({'total_items': order.total_items })
+
+@login_required(login_url='user:login')
+def cart(request):
+
+    order = get_object_or_404(Order, user=request.user)
+    orderitems = order.orderitem_set.all()
+
+    context = {
+    'order':order,
+    'orderitems':orderitems
+    }
+    return render(request, 'store/cart.html', context)
+
+def update_cart(request):
+
+    if request.POST.get('type') == 'post':
+        action = request.POST.get('action')
+        productid = request.POST.get('productid')
+
+        product = get_object_or_404(Product, id=productid)
+        orderitem = get_object_or_404(Orderitem, product=product)
+        order = get_object_or_404(Order, user=request.user)
+        delete = False
+
+        if action == 'add':
+            orderitem.quantity += 1
+        elif action == 'remove':
+            orderitem.quantity -= 1
+
+        orderitem.save()
+
+        if orderitem.quantity < 1:
+            orderitem.delete()
+            delete = True
+
+        print("Delete: ", delete)
+
+        return JsonResponse({'quantity':orderitem.quantity,
+        'subtotal':orderitem.subtotal,
+        'cost':order.cost,
+        'total_items':order.total_items,
+        'delete':delete,
+        })

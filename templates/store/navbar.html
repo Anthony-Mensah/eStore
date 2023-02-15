@@ -8,10 +8,14 @@
         </a>
 
         <div class = "order-lg-2 nav-btns">
-            <button type = "button" class = "btn position-relative">
+            <!-- <button type = "button" class = "btn position-relative">
                 <i class = "fa fa-shopping-cart"></i>
                 <span id="cart-items" class = "position-absolute top-0 start-100 translate-middle badge bg-primary">{{order.total_items}}</span>
-            </button>
+            </button> -->
+            <a href="{% url 'store:cart' %}" type = "button" class = "btn position-relative">
+              <i class = "fa fa-shopping-cart"></i>
+              <span id="cart-items" class = "position-absolute top-0 start-100 translate-middle badge bg-primary">{{order.total_items}}</span>
+            </a>
         </div>
 
         <button class = "navbar-toggler border-0" type = "button" data-bs-toggle = "collapse" data-bs-target = "#navMenu">
@@ -44,7 +48,7 @@
                 </li>
                 {% else %}
                 <li class="nav-item px-2 py-2">
-                  <a class="nav-link text-uppercase text-dark btn-primary" href="">Login</a>
+                  <a class="nav-link text-uppercase text-dark btn-primary" href="{% url 'user:login' %}">Login</a>
                 </li>
                 {% endif %}
             </ul>
